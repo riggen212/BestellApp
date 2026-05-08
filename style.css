@@ -1,0 +1,108 @@
+:root {
+    --bgColor: rgb(231, 108, 31);
+    --paddingLeftRight: clamp(24px, calc(-1.143px + 7.857vw), 112px);
+    --maxContentArea: 1440px;
+
+    /* font-size */
+    --step--2: clamp(0.6944rem, 0.3443rem + 1.7508vw, 1.92rem);
+    --step--1: clamp(0.8333rem, 0.3857rem + 2.2381vw, 2.4rem);
+    --step-0: clamp(1rem, 0.4286rem + 2.8571vw, 3rem);
+    --step-1: clamp(1.2rem, 0.4714rem + 3.6429vw, 3.75rem);
+    --step-2: clamp(1.44rem, 0.5121rem + 4.6393vw, 4.6875rem);
+    --step-3: clamp(1.728rem, 0.5476rem + 5.902vw, 5.8594rem);
+    --step-4: clamp(2.0736rem, 0.5734rem + 7.5009vw, 7.3242rem);
+    --step-5: clamp(2.4883rem, 0.5835rem + 9.5242vw, 9.1553rem);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.bgColor {
+    width: 100%;
+    background-color: var(--bgColor);
+    display: flex;
+    justify-content: center;
+}
+
+.headerContent {
+    width: 100%;
+    max-width: var(--maxContentArea);
+    height: 128px;
+    padding-inline: var(--paddingLeftRight);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerImages {
+    display: grid;
+    grid-template-areas: "stack";
+    place-items: center;
+    overflow: visible;
+
+    p {
+        transform: translateY(clamp(100px, calc(88.571px + 3.571vw), 140px));
+        text-align: center;
+        font-size: clamp(1.25rem, 1.1786rem + 0.3571vw, 1.5rem);
+        padding-inline: var(--paddingLeftRight)
+    }
+}
+
+.headline{
+    transform: translateY(clamp(80px, calc(68.571px + 3.571vw), 120px));
+
+    display: flex;
+    align-items: center;
+
+    gap: 16px
+}
+
+.headerImages h1 {
+    font-size: clamp(2.5rem, 2.3571rem + 0.7143vw, 3rem);
+}
+
+.nameLineOne {
+    color: var(--bgColor);
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    background-color: rgb(250,202,172);
+    padding: 4px 8px;
+    border-radius: 4px;
+    gap: 4px;
+
+    .ratingValue {
+        font-weight: bold;
+    }
+
+    .ratingAmount {
+        color: rgb(114,109,109);
+    }
+}
+
+.landingImage {
+    max-width: 100%;
+    width: clamp(320px, calc(0px + 100vw), 1440px);
+    height: clamp(350px, calc(304.286px + 14.286vw), 510px);
+
+    object-fit: cover;
+    object-position: center;
+    grid-area: stack;
+}
+
+.landingBurgerLogo {
+    grid-area: stack;
+    align-self: end;
+    transform: translateY(clamp(60px, calc(48.571px + 3.571vw), 100px));
+    z-index: 2;
+
+    width: clamp(120px, calc(97.143px + 7.143vw), 200px);
+    border-radius: 50%;
+    border: 12px solid rgba(253, 234, 220, 1);
+    box-shadow: -1px 6px 13px -2px rgba(0, 0, 0, 0.34);
+}
