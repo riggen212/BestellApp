@@ -4,16 +4,6 @@
     --menuCardBackgroundColor: rgb(253, 234, 220);
     --paddingLeftRightMenuHeader: clamp(64px, calc(36.571px + 8.571vw), 160px);
     --maxContentArea: 1440px;
-
-    /* font-size */
-    --step--2: clamp(0.6944rem, 0.3443rem + 1.7508vw, 1.92rem);
-    --step--1: clamp(0.8333rem, 0.3857rem + 2.2381vw, 2.4rem);
-    --step-0: clamp(1rem, 0.4286rem + 2.8571vw, 3rem);
-    --step-1: clamp(1.2rem, 0.4714rem + 3.6429vw, 3.75rem);
-    --step-2: clamp(1.44rem, 0.5121rem + 4.6393vw, 4.6875rem);
-    --step-3: clamp(1.728rem, 0.5476rem + 5.902vw, 5.8594rem);
-    --step-4: clamp(2.0736rem, 0.5734rem + 7.5009vw, 7.3242rem);
-    --step-5: clamp(2.4883rem, 0.5835rem + 9.5242vw, 9.1553rem);
 }
 
 * {
@@ -24,7 +14,7 @@
 button {
     background-color: rgb(255, 255, 255);
     border: none;
-    border-radius: 20px;
+    border-radius: 12px;
     white-space: nowrap;
     padding: 5px 8px 5px 8px;
     font-size: 16px;
@@ -148,23 +138,30 @@ button {
     }
 
 }
- /* single menu card */
+
+/* single menu card */
 .menuCard {
+    display: flex;
     width: 100%;
     max-width: var(--maxContentArea);
     margin: auto;
 
     .menuContentCard {
         display: flex;
-        justify-content: space-between;
         gap: 16px;
 
-        width: 710px;
+        width: 810px;
         margin-top: 16px;
         padding: 12px;
         border-radius: 12px;
 
         background-color: var(--menuCardBackgroundColor);
+
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
 
         img {
             width: 220px;
