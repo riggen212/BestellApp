@@ -1,6 +1,8 @@
 :root {
     --bgColor: rgb(231, 108, 31);
     --paddingLeftRight: clamp(24px, calc(-1.143px + 7.857vw), 112px);
+    --menuCardBackgroundColor: rgb(253, 234, 220);
+    --paddingLeftRightMenuHeader: clamp(64px, calc(36.571px + 8.571vw), 160px);
     --maxContentArea: 1440px;
 
     /* font-size */
@@ -19,7 +21,17 @@
     margin: 0;
 }
 
-.bgColor {
+button {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 20px;
+    white-space: nowrap;
+    padding: 5px 8px 5px 8px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.headerTop {
     width: 100%;
     background-color: var(--bgColor);
     display: flex;
@@ -38,71 +50,154 @@
 }
 
 .headerImages {
-    display: grid;
-    grid-template-areas: "stack";
-    place-items: center;
-    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .landingImage {
+        max-width: 100%;
+        width: clamp(320px, calc(0px + 100vw), 1440px);
+        height: clamp(350px, calc(304.286px + 14.286vw), 510px);
+
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .landingBurgerLogo {
+        margin-top: calc(calc((clamp(120px, calc(97.143px + 7.143dvw), 200px)) * 0.5) *-1);
+        margin-bottom: 16px;
+        z-index: 2;
+
+        width: clamp(120px, calc(97.143px + 7.143dvw), 200px);
+        border-radius: 50%;
+        border: 12px solid rgba(253, 234, 220, 1);
+        box-shadow: -1px 6px 13px -2px rgba(0, 0, 0, 0.34);
+    }
+
+    .headline {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+
+        gap: 16px;
+
+        h1 {
+            font-size: clamp(2.5rem, 2.3571rem + 0.7143vw, 3rem);
+        }
+
+        .nameLineOne {
+            color: var(--bgColor);
+        }
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        background-color: rgb(250, 202, 172);
+        padding: 4px 8px;
+        border-radius: 4px;
+        gap: 4px;
+
+        .ratingValue {
+            font-weight: bold;
+        }
+
+        .ratingAmount {
+            color: rgb(114, 109, 109);
+        }
+    }
 
     p {
-        transform: translateY(clamp(100px, calc(88.571px + 3.571vw), 140px));
         text-align: center;
         font-size: clamp(1.25rem, 1.1786rem + 0.3571vw, 1.5rem);
-        padding-inline: var(--paddingLeftRight)
+        padding-inline: var(--paddingLeftRight);
     }
 }
 
-.headline{
-    transform: translateY(clamp(80px, calc(68.571px + 3.571vw), 120px));
-
+/* single menu section */
+.menuCategory {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 48px;
 
-    gap: 16px
-}
-
-.headerImages h1 {
-    font-size: clamp(2.5rem, 2.3571rem + 0.7143vw, 3rem);
-}
-
-.nameLineOne {
-    color: var(--bgColor);
-}
-
-.rating {
-    display: flex;
-    align-items: center;
-    background-color: rgb(250,202,172);
-    padding: 4px 8px;
-    border-radius: 4px;
-    gap: 4px;
-
-    .ratingValue {
-        font-weight: bold;
+    .menuCategoryHeadlineBackground {
+        width: 100%;
+        height: 60px;
+        background-color: var(--bgColor);
     }
 
-    .ratingAmount {
-        color: rgb(114,109,109);
+    .menuCategoryHeadline {
+        max-width: var(--maxContentArea);
+        padding-left: var(--paddingLeftRightMenuHeader);
+        display: flex;
+        align-items: flex-end;
+        margin: auto;
+        gap: 24px;
+
+        img {
+            height: clamp(60px, calc(52px + 2.5vw), 88px);
+            margin-top: calc((clamp(0px, calc(-8px + 2.5vw), 28px)) *-1);
+        }
+
+        h2 {
+            color: white;
+            font-size: clamp(2rem, 1.8571rem + 0.7143vw, 2.5rem);
+            padding-bottom: 8px;
+        }
     }
+
 }
+ /* single menu card */
+.menuCard {
+    width: 100%;
+    max-width: var(--maxContentArea);
+    margin: auto;
 
-.landingImage {
-    max-width: 100%;
-    width: clamp(320px, calc(0px + 100vw), 1440px);
-    height: clamp(350px, calc(304.286px + 14.286vw), 510px);
+    .menuContentCard {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
 
-    object-fit: cover;
-    object-position: center;
-    grid-area: stack;
-}
+        width: 710px;
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 12px;
 
-.landingBurgerLogo {
-    grid-area: stack;
-    align-self: end;
-    transform: translateY(clamp(60px, calc(48.571px + 3.571vw), 100px));
-    z-index: 2;
+        background-color: var(--menuCardBackgroundColor);
 
-    width: clamp(120px, calc(97.143px + 7.143vw), 200px);
-    border-radius: 50%;
-    border: 12px solid rgba(253, 234, 220, 1);
-    box-shadow: -1px 6px 13px -2px rgba(0, 0, 0, 0.34);
+        img {
+            width: 220px;
+            height: 120px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 12px;
+        }
+
+        .menuDescription {
+            h3 {
+                font-size: 24px;
+                font-weight: 600;
+                padding-bottom: 8px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+
+        .menuPrice {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+
+            span {
+                font-size: 24px;
+                font-weight: 600;
+            }
+
+
+        }
+    }
 }
