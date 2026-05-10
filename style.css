@@ -198,3 +198,25 @@ button {
         }
     }
 }
+
+footer {
+    display: flex;
+    justify-content: center;
+    height: 128px;
+    width: 100%;
+    margin-top: 48px;
+
+    background-color: var(--bgColor);
+
+    .footerContent {
+        display: flex;
+        align-items: flex-end;
+        gap: 56px;
+        max-width: var(--maxContentArea);
+        padding-bottom: 32px;
+
+        color: white;
+        font-size: 18px;
+        font-weight: 400;
+    }
+}
