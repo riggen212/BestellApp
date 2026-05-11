@@ -18,3 +18,19 @@ function renderMenuCard(index, numb) {
             </div>
     `;
 }
+
+function renderBasketMember(params) {
+    return `<section class="basketMember">
+                <p><span id="amountValue">1</span></p>
+                <div class="basketAmountArea">
+                    <div>
+                        <button>
+                            <img src="./assets/icons/delete_icon.svg" alt="delete the menu from basket">
+                        </button>
+                        <button>1+</button>
+                    </div>
+                    <span id="basketPrice">16,90€</span>
+                </div>
+            </section>
+    `;
+}

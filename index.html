@@ -39,12 +39,33 @@
     <main>
         <section id="burgerMenu" class="menuCategory">
             <div class="menuCategoryHeadlineBackground">
-                <div class="menuCategoryHeadline">
-                    <img src="./assets/icons/burger_icon.svg" alt="a picture of a hamburger">
-                    <h2>Burger & Sandwiches</h2>
+                <div class="menuCategoryHeadline spaceBetween">
+                    <div class="flexbox">
+                        <img src="./assets/icons/burger_icon.svg" alt="a picture of a hamburger">
+                        <h2>Burger & Sandwiches</h2>
+                    </div>
+
+                    <section id="basketArea" class="basket">
+                        <h2>Your Basket</h2>
+                        <div id="basketMemberCard" class="basketContent customScroll">
+                            <section id="emptyBasket" class="basketEmptyText">
+                                <p>Nothing here yet. Go ahead and choose something delicious!</p>
+                                <img src="./assets/icons/basket_icon.svg" alt="">
+                            </section>
+                        </div>
+
+                        <section id="basketCalculation" class="orderCalculation">
+                            <div class="priceCalculation">
+                                <p><span>Subtotal</span><span>35€</span></p>
+                                <p><span>Delivery fee</span><span>4,99€</span></p>
+                                <hr>
+                                <p><span> Total</span><span>39,99€</span></p>
+                            </div>
+                            <button>Buy now (<span>39,99€</span>)</button>
+                        </section>   
+                    </section>
                 </div>
             </div>
-
         </section>
 
         <section id="pizzaMenu" class="menuCategory">
@@ -54,8 +75,8 @@
                     <h2>Pizza (30cm)</h2>
                 </div>
             </div>
-
         </section>
+
         <section id="saladMenu" class="menuCategory">
             <div class="menuCategoryHeadlineBackground">
                 <div class="menuCategoryHeadline">
@@ -63,7 +84,6 @@
                     <h2>Salad</h2>
                 </div>
             </div>
-
         </section>
     </main>
     <footer>

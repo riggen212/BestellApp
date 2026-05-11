@@ -11,6 +11,10 @@
     margin: 0;
 }
 
+.spaceBetween {
+    justify-content: space-between;
+}
+
 button {
     background-color: rgb(255, 255, 255);
     border: none;
@@ -122,9 +126,14 @@ button {
         max-width: var(--maxContentArea);
         padding-left: var(--paddingLeftRightMenuHeader);
         display: flex;
-        align-items: flex-end;
+        align-items: flex-start;
         margin: auto;
         gap: 24px;
+
+        .flexbox {
+            display: flex;
+            gap: 24px;
+        }
 
         img {
             height: clamp(60px, calc(52px + 2.5vw), 88px);
@@ -194,8 +203,6 @@ button {
                 font-size: 24px;
                 font-weight: 600;
             }
-
-
         }
     }
 }
@@ -219,5 +226,140 @@ footer {
         color: white;
         font-size: 18px;
         font-weight: 400;
+    }
+}
+
+/* styling basket */
+.basket {
+    visibility: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+
+    position: sticky;
+    top: -60px;
+    right: 0;
+    z-index: 10;
+
+    width: 350px;
+    height: 800px;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+
+    padding: 32px 40px 32px 40px;
+    background-color: rgb(54, 53, 52);
+
+    h2 {
+        color: rgb(253, 234, 220);
+        text-align: center;
+    }
+
+    .basketEmptyText {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+
+        color: rgb(253, 234, 220);
+
+        p {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 500;
+
+            padding-top: 24px;
+        }
+
+        img {
+            height: 128px;
+        }
+    }
+
+    .basketContent {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 16px;
+        overflow-y: scroll;
+
+        .basketMember {
+            background-color: rgb(253, 234, 220);
+            border-radius: 16px;
+
+            font-size: 22px;
+            font-weight: 600;
+            padding: 12px;
+            margin-right: 4px;
+
+            .basketAmountArea {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 8px;
+
+                img {
+                    height: 14px;
+                }
+            }
+        }
+    }
+
+    .customScroll::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .customScroll::-webkit-scrollbar-button {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+
+    .customScroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .customScroll::-webkit-scrollbar-thumb {
+        background: rgb(253, 234, 220);
+        border-radius: 6px;
+        border: 4px solid transparent;
+    }
+
+    .orderCalculation {
+        visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        padding-top: 16px;
+
+        button {
+            background-color: var(--bgColor);
+            color: white;
+            border-radius: 32px;
+            padding: 16px;
+
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .priceCalculation {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            gap: 12px;
+
+            font-size: 20px;
+
+            hr {
+                border: 2px solid rgb(253, 234, 220);
+                border-radius: 4px;
+            }
+
+            p {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
     }
 }
