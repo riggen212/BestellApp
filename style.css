@@ -325,8 +325,15 @@ footer {
         border: 4px solid transparent;
     }
 
-    .orderCalculation {
+    .orderCalculationShow {
+        visibility: visible;
+    }
+
+    .orderCalculationHidden {
         visibility: hidden;
+    }
+
+    .orderCalculation {
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -339,7 +346,7 @@ footer {
             border-radius: 32px;
             padding: 16px;
 
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 700;
         }
 

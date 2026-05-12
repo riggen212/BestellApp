@@ -7,7 +7,7 @@ function showMenus() {
             renderBurgerMenus(0);
         } else if (i == 1) {
             renderPizzaMenus(1);
-        } else if (i == 2) { 
+        } else if (i == 2) {
             renderSaladMenus(2);
         } else {
             return;
@@ -38,13 +38,13 @@ function getBurgerData(index) {
 }
 
 function renderPizzaMenus(i) {
-        let arrayLength = menus[KEYS[1]].pizza.length;
-        let elementId = document.getElementById('pizzaMenu');
+    let arrayLength = menus[KEYS[1]].pizza.length;
+    let elementId = document.getElementById('pizzaMenu');
 
-        for (let cardNumber = 0; cardNumber < arrayLength; cardNumber++) {
-            elementId.innerHTML += renderMenuCard(cardNumber, 1);
-            getPizzaData(cardNumber);
-        }
+    for (let cardNumber = 0; cardNumber < arrayLength; cardNumber++) {
+        elementId.innerHTML += renderMenuCard(cardNumber, 1);
+        getPizzaData(cardNumber);
+    }
 }
 
 function getPizzaData(index) {
@@ -60,13 +60,13 @@ function getPizzaData(index) {
 }
 
 function renderSaladMenus(i) {
-        let arrayLength = menus[KEYS[1]].pizza.length;
-        let elementId = document.getElementById('saladMenu');
+    let arrayLength = menus[KEYS[1]].pizza.length;
+    let elementId = document.getElementById('saladMenu');
 
-        for (let cardNumber = 0; cardNumber < arrayLength; cardNumber++) {
-            elementId.innerHTML += renderMenuCard(cardNumber, 2);
-            getSaladData(cardNumber);
-        }
+    for (let cardNumber = 0; cardNumber < arrayLength; cardNumber++) {
+        elementId.innerHTML += renderMenuCard(cardNumber, 2);
+        getSaladData(cardNumber);
+    }
 }
 
 function getSaladData(index) {
@@ -79,4 +79,90 @@ function getSaladData(index) {
     description.innerHTML += menus[KEYS[2]].salad[index].menuDescription;
     price.innerHTML += menus[KEYS[2]].salad[index].menuPrice.toFixed(2) + '€';
     imagePath.setAttribute("src", `./assets/img/${menus[KEYS[2]].salad[index].menuImageName}`);
+}
+
+// basket logic
+function addMenuToBasket(currentElement) {
+    let basket = document.getElementById('basketMemberCard');
+    let currentName = getMenuName(currentElement);
+    let currentCategoryIndex = getMenuCategoryIndex(currentElement);
+    let currentCategoryName = getMenuCategoryName(currentElement);
+    let currentMenuId = getCurrentMenuId(currentCategoryIndex, currentCategoryName, currentName) 
+    let menuPrice = getMenuPrice(currentElement);
+    let amount = getMenuAmount (currentCategoryIndex, currentCategoryName, currentName);
+
+    hiddenEmptyBasketInfo();
+    showCalculationSection();
+    if (basket.querySelector(`#menu${currentMenuId}`) == null) {
+        basket.innerHTML += renderBasketMember(currentName, menuPrice, currentMenuId, amount);
+    }
+}
+
+function hiddenEmptyBasketInfo() {
+    let emptyText = document.getElementById('emptyBasket');
+    emptyText.style.display = 'none';
+}
+
+function showCalculationSection() {
+    let element = document.getElementById('basketCalculation');
+
+    if (element.classList.contains('orderCalculationHidden')) {
+        element.classList.remove('orderCalculationHidden');
+        element.classList.add('orderCalculationShow');
+    }
+}
+
+function getMenuName(currentElement) {
+    let parent = currentElement.parentElement;
+    let siblingContainer = parent.previousElementSibling;
+    return targetElement = siblingContainer.querySelector('.menuName').textContent;
+}
+
+function getMenuPrice(currentElement) {
+    return targetElement = currentElement.previousElementSibling.textContent;
+}
+
+
+function getMenuCategoryIndex(element) {
+    let currentCategory = 4;
+    let parent = element.parentElement.parentElement.parentElement.parentElement.parentElement;
+
+    if (parent.id === 'burgerMenu') {
+        currentCategory = 0;
+    } else if (parent.id === 'pizzaMenu') {
+        currentCategory = 1;
+    } else {
+        currentCategory = 2;
+    }
+    return currentCategory;
+}
+
+function getMenuCategoryName(element) {
+    let currentCategoryName = "";
+    let parent = element.parentElement.parentElement.parentElement.parentElement.parentElement;
+    if (parent.id === 'burgerMenu') {
+        currentCategoryName = "burger";
+    } else if (parent.id === 'pizzaMenu') {
+        currentCategoryName = "pizza";
+    } else {
+        currentCategoryName = "salad";
+    }
+    return currentCategoryName;
+}
+
+function getCurrentMenuId(categoryIndex, categoryName, name) {
+    let currentMenu = menus[KEYS[categoryIndex]][categoryName].find(menu => menu.menuName === name);
+    return currentMenu.id;
+}
+
+function getMenuAmount (categoryIndex, categoryName, name) {
+    let currentMenu = menus[KEYS[categoryIndex]][categoryName].find(menu => menu.menuName === name);
+
+    currentMenu.amount ++;
+    return currentMenu.amount;
+}
+
+function deleteMenuFromBasket(element) {
+    let menuId = element.parentElement.parentElement.parentElement;
+    menuId.remove();  
 }
