@@ -19,17 +19,18 @@ function renderMenuCard(index, numb) {
     `;
 }
 
-function renderBasketMember(name, price, id, amount) {
-    return `<section id="menu${id}" class="basketMember">
-                <p><span id="amountValue">${amount}</span> ${name}</p>
+function renderBasketMember(menuName, menuPrice, amount, menuId) {
+    return `<section id="menu${menuId}" class="basketMember">
+                <p><span>${amount}</span> ${menuName}</p>
                 <div class="basketAmountArea">
                     <div>
                         <button onclick="deleteMenuFromBasket(this)">
                             <img src="./assets/icons/delete_icon.svg" alt="delete the menu from basket">
                         </button>
-                        <button>1+</button>
+                        <button onclick="increaseAmount(this)">1+</button>
+                        <button onclick="decreaseAmount(this)">1-</button>
                     </div>
-                    <span id="basketPrice">${price}</span>
+                    <span>${menuPrice}€</span>
                 </div>
             </section>
     `;

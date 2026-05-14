@@ -6,7 +6,7 @@ let menus = [
                 "menuDescription": "Mixed green salad, Tomatoes, Edamame, Mushrooms",
                 "menuImageName": "veggie_mushroom_black-burger.jpg",
                 "menuPrice": 16.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 10
             },
             {
@@ -14,7 +14,7 @@ let menus = [
                 "menuDescription": "Beef, Bacon, Dill pickles, Smoked cheese, Ketchup, BBQ souse",
                 "menuImageName": "all_meat_burger.jpg",
                 "menuPrice": 15.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 11
             },
             {
@@ -22,7 +22,7 @@ let menus = [
                 "menuDescription": "Beef, Cheese, Tomatoes, Lettuce, Onion",
                 "menuImageName": "beef_red_burger.jpg",
                 "menuPrice": 14.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 12
             },
             {
@@ -30,7 +30,7 @@ let menus = [
                 "menuDescription": "Chicken, Cheese, Tomatoes, Lettuce, Onion, Bell pepper",
                 "menuImageName": "big_chicken_burger.jpg",
                 "menuPrice": 15.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 13
             }
         ]
@@ -42,7 +42,7 @@ let menus = [
                 "menuDescription": "Tomato Sauce, Mozzarella",
                 "menuImageName": "pizza_magharita.jpg",
                 "menuPrice": 11.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 20
             },
             {
@@ -50,7 +50,7 @@ let menus = [
                 "menuDescription": "Tomato slices, Mozzarella, Chorizo",
                 "menuImageName": "pizza_Chorizo.jpg",
                 "menuPrice": 13.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 21
             },
             {
@@ -58,7 +58,7 @@ let menus = [
                 "menuDescription": "Red onion, Olives, Button Mushrooms, Mozzarella",
                 "menuImageName": "pizza_funghi.jpg",
                 "menuPrice": 12.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 22
             },
             {
@@ -66,7 +66,7 @@ let menus = [
                 "menuDescription": "Chicken, Mozzarella, Gorgonzola, Fontina,  Parmigiano Reggiano",
                 "menuImageName": "pizza_quattro.jpg",
                 "menuPrice": 15.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 23
             },
         ]
@@ -78,7 +78,7 @@ let menus = [
                 "menuDescription": "Beef, Arugula, Field salad, Greek feta, Cherry tomatoes, Sun-dried Tomatoes, Balsamic-vinegar dressing",
                 "menuImageName": "salad_warm_beef.jpg",
                 "menuPrice": 11.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 30
             },
             {
@@ -86,7 +86,7 @@ let menus = [
                 "menuDescription": "Green salad, Cucumber, Carrots, Parsley, Radishes ",
                 "menuImageName": "salad_mini.jpg",
                 "menuPrice": 13.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 31
             },
             {
@@ -94,7 +94,7 @@ let menus = [
                 "menuDescription": "Mixed greens, Cherry tomatoes, Red onion, Mussels, Squid rings, Shrimp, Dijon mustard-lemon dressing with dill",
                 "menuImageName": "salad_green.jpg",
                 "menuPrice": 12.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 32
             },
             {
@@ -102,7 +102,7 @@ let menus = [
                 "menuDescription": "Green salad, Cherry tomatoes, Cucumber, Baby spinach, Edamame, Radishes, Bittercress, Tofu, Peanuts",
                 "menuImageName": "salad_vegan.jpg",
                 "menuPrice": 15.90,
-                "amount": 0,
+                "amount": 1,
                 "id": 33
             },
         ]
