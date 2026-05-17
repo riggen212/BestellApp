@@ -2,6 +2,7 @@
     font-family: 'palanquinDark';
     src: url('./assets/fonts/palanquin_dark.woff2') format('woff2');
 }
+
 @font-face {
     font-family: 'palanquin';
     src: url('./assets/fonts/palanquin.woff2') format('woff2');
@@ -13,6 +14,7 @@
     --menuCardBackgroundColor: rgb(253, 234, 220);
     --paddingLeftRightMenuHeader: clamp(64px, calc(36.571px + 8.571vw), 160px);
     --maxContentArea: 1440px;
+    --showElement: hidden;
 }
 
 * {
@@ -34,6 +36,11 @@ button {
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    line-height: normal;
+}
+
+button:hover {
+    color: rgb(231, 108, 31);
 }
 
 .headerTop {
@@ -294,9 +301,9 @@ footer {
         display: flex;
         flex: 1;
         flex-direction: column;
-        justify-content: flex-start;
         gap: 16px;
         overflow-y: scroll;
+        line-height: 1.5;
 
         .basketMember {
             background-color: rgb(253, 234, 220);
@@ -313,74 +320,105 @@ footer {
                 align-items: center;
                 padding-top: 8px;
 
-                img {
-                    height: 14px;
+                line-height: 1;
+
+                .btnButton {
+                    display: flex;
+                    height: 24px;
+                    gap: 8px;
+
+                    font-size: 20px;
+
+                    button {
+                        background-color: transparent;
+                        padding: 0;
+                        margin: 0;
+                        line-height: 1;
+                        font-size: 20px;
+
+                        position: relative;
+                    }
+
+                    .btnDecrease {
+                        visibility: var(--showElement);
+                    }
+
+                    .btnDelete {
+                        width: 20px;
+                        height: 18px;
+                        margin: 0;
+                        object-position: center;
+                    }
+
+                    .btnDelete:hover {
+                        content: url('./assets/icons/delete_hover.svg');
+                    }
                 }
             }
         }
     }
+}
 
-    .customScroll::-webkit-scrollbar {
-        width: 4px;
+.customScroll::-webkit-scrollbar {
+    width: 4px;
+}
+
+.customScroll::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.customScroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.customScroll::-webkit-scrollbar-thumb {
+    background: rgb(253, 234, 220);
+    border-radius: 6px;
+    border: 4px solid transparent;
+}
+
+.orderCalculationShow {
+    visibility: visible;
+}
+
+.orderCalculationHidden {
+    visibility: hidden;
+}
+
+.orderCalculation {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding-top: 16px;
+
+    button {
+        background-color: var(--bgColor);
+        color: white;
+        border-radius: 32px;
+        padding: 8px;
+
+        font-size: 30px;
+        font-weight: 700;
     }
 
-    .customScroll::-webkit-scrollbar-button {
-        width: 0;
-        height: 0;
-        display: none;
-    }
-
-    .customScroll::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .customScroll::-webkit-scrollbar-thumb {
-        background: rgb(253, 234, 220);
-        border-radius: 6px;
-        border: 4px solid transparent;
-    }
-
-    .orderCalculationShow {
-        visibility: visible;
-    }
-
-    .orderCalculationHidden {
-        visibility: hidden;
-    }
-
-    .orderCalculation {
+    .priceCalculation {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        color: white;
 
-        padding-top: 16px;
+        font-size: 20px;
 
-        button {
-            background-color: var(--bgColor);
-            color: white;
-            border-radius: 32px;
-            padding: 8px;
-
-            font-size: 30px;
-            font-weight: 700;
+        hr {
+            border: 2px solid rgb(253, 234, 220);
+            border-radius: 4px;
         }
 
-        .priceCalculation {
+        p {
             display: flex;
-            flex-direction: column;
-            color: white;
-
-            font-size: 20px;
-
-            hr {
-                border: 2px solid rgb(253, 234, 220);
-                border-radius: 4px;
-            }
-
-            p {
-                display: flex;
-                justify-content: space-between;
-            }
+            justify-content: space-between;
         }
     }
 }

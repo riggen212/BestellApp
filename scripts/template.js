@@ -11,7 +11,7 @@ function renderMenuCard(index, numb) {
                         </div>
                         <div class="menuPrice">
                             <span id="price${numb}${index}"></span>
-                            <button class="btn" onclick="addMenuToBasket(this)">Add to basket</button>
+                            <button class="btn" onclick="getMenuDataForBasket(this)">Add to basket</button>
                         </div>
                     </div>
                 </article>
@@ -20,18 +20,18 @@ function renderMenuCard(index, numb) {
 }
 
 function renderBasketMember(menuName, menuPrice, amount, menuId) {
-    return `<section id="menu${menuId}" class="basketMember">
-                <p><span>${amount}</span> ${menuName}</p>
+    return `<article id="menu${menuId}" class="basketMember">
+                <p><span>${amount}</span> x ${menuName}</p>
                 <div class="basketAmountArea">
-                    <div>
+                    <div class="btnButton">
                         <button onclick="deleteMenuFromBasket(this)">
-                            <img src="./assets/icons/delete_icon.svg" alt="delete the menu from basket">
+                            <img class="btnDelete" src="./assets/icons/delete_icon.svg" alt="delete the menu from basket">
                         </button>
                         <button onclick="increaseAmount(this)">1+</button>
-                        <button onclick="decreaseAmount(this)">1-</button>
+                        <button class="btnDecrease" onclick="decreaseAmount(this)">1-</button>
                     </div>
                     <span>${menuPrice}€</span>
-                </div>
-            </section>
+                </<div>
+            </article>
     `;
 }

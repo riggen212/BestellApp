@@ -33,7 +33,7 @@ function getBurgerData(index) {
     let description = document.getElementById(`description0${index}`);
     let price = document.getElementById(`price0${index}`);
     let imagePath = document.getElementById(`imagePath0${index}`)
-    let menuCardRef = document.getElementById(`name0${index}`).parentElement.parentElement.parentElement.parentElement;
+    let menuCardRef = document.getElementById(`name0${index}`).parentElement.parentElement.parentElement;
 
     name.innerHTML += menus[KEYS[BURGERID]].burger[index].menuName;
     description.innerHTML += menus[KEYS[BURGERID]].burger[index].menuDescription;
@@ -57,7 +57,7 @@ function getPizzaData(index) {
     let description = document.getElementById(`description1${index}`);
     let price = document.getElementById(`price1${index}`);
     let imagePath = document.getElementById(`imagePath1${index}`)
-    let menuCardRef = document.getElementById(`name1${index}`).parentElement.parentElement.parentElement.parentElement;
+    let menuCardRef = document.getElementById(`name1${index}`).parentElement.parentElement.parentElement;
 
     name.innerHTML += menus[KEYS[PIZZAID]].pizza[index].menuName;
     description.innerHTML += menus[KEYS[PIZZAID]].pizza[index].menuDescription;
@@ -81,7 +81,7 @@ function getSaladData(index) {
     let description = document.getElementById(`description2${index}`);
     let price = document.getElementById(`price2${index}`);
     let imagePath = document.getElementById(`imagePath2${index}`)
-    let menuCardRef = document.getElementById(`name2${index}`).parentElement.parentElement.parentElement.parentElement;
+    let menuCardRef = document.getElementById(`name2${index}`).parentElement.parentElement.parentElement;
 
     name.innerHTML += menus[KEYS[SALADID]].salad[index].menuName;
     description.innerHTML += menus[KEYS[SALADID]].salad[index].menuDescription;
@@ -91,29 +91,65 @@ function getSaladData(index) {
 }
 
 // basket logic
-function addMenuToBasket(currentElement) {
+function getMenuDataForBasket(currentElement) {
     let basketRef = document.getElementById('basketMemberCard');
     let menuCategoryIndex = getMenuCategoryIndex(currentElement);
     let menuCategoryName = getMenuCategoryName(menuCategoryIndex);
     let menuId = getMenuId(currentElement);
     let menuName = getMenuName(menuCategoryIndex, menuCategoryName, menuId[1]);
     let amount = getMenuAmount(menuCategoryIndex, menuCategoryName, menuId[1]);
-    
     let menuPrice = getMenuPrice(menuCategoryIndex, menuCategoryName, menuId[1]) * amount;
 
     hiddenEmptyBasketInfo();
     showCalculationSection();
+    renderMenuInBasket(basketRef, menuName, menuPrice, amount, menuId, currentElement);
+}
+
+function renderMenuInBasket(basketRef, menuName, menuPrice, amount, menuId, currentElement) {
     if (basketRef.querySelector(`#menu${menuId}`) == null) {
         if (amount == 1) {
             basketRef.innerHTML += renderBasketMember(menuName, menuPrice, amount, menuId);
             calculateNewPrice(menuId);
+            changeButtonText(currentElement, amount);
         }
     } else {
         const BASKETREF = document.getElementById('basketMemberCard');
         increaseBasketMenuAmount(menuId);
-        calculateNewPrice(menuId);  
+        calculateNewPrice(menuId);
+        changeButtonText(currentElement, amount);
+        showDecreaseButton(currentElement, BASKETREF);
     };
 }
+
+function changeButtonText(buttonRef) {
+    const MENUID = buttonRef.parentElement.parentElement.parentElement.id;
+    const CURRENTCATEGORYNAME = getMenuCategoryName(MENUID[4] - 1);
+    const CURRENTAMOUNT = getMenuAmount(MENUID[4] - 1, CURRENTCATEGORYNAME, MENUID[5]);
+
+    buttonRef.textContent = `Added ${CURRENTAMOUNT}`;
+}
+
+function getSectionIdName(id) {
+    let name = "";
+    switch (id) {
+        case 0:
+            name = "burgerMenu";
+            break;
+        case 1:
+            name = "pizzaMenu";
+            break;
+        case 2:
+            name = "saladMenu";
+            break;
+        default:
+            break;
+    }
+
+return name;
+}
+
+
+
 
 function hiddenEmptyBasketInfo() {
     let emptyText = document.getElementById('emptyBasket');
@@ -122,7 +158,7 @@ function hiddenEmptyBasketInfo() {
 
 function showEmptyBasketInfo() {
     let emptyText = document.getElementById('emptyBasket');
-    emptyText.style.display = 'flex';   
+    emptyText.style.display = 'flex';
 }
 
 function showCalculationSection() {
@@ -139,7 +175,7 @@ function hiddenCalculationSection() {
 
     if (element.classList.contains('orderCalculationShow')) {
         element.classList.remove('orderCalculationShow');
-        element.classList.add('orderCalculationHidden');       
+        element.classList.add('orderCalculationHidden');
     };
 }
 
@@ -156,14 +192,13 @@ function getMenuAmount(categoryIndex, categoryName, menuIndex) {
 }
 
 function getMenuId(element) {
-    let currentMenu = element.parentElement.parentElement.parentElement.parentElement.getAttribute("id");
+    let currentMenu = element.parentElement.parentElement.parentElement.getAttribute("id");
     currentMenu = currentMenu.slice(-2);
     return currentMenu;
 }
 
-
 function getMenuCategoryIndex(element) {
-    let currentCategory = element.parentElement.parentElement.parentElement.parentElement.getAttribute("id");
+    let currentCategory = element.parentElement.parentElement.parentElement.getAttribute("id");
     currentCategory = currentCategory[4] - 1;
     return currentCategory;
 }
@@ -181,9 +216,9 @@ function getMenuCategoryName(index) {
 
 function increaseBasketMenuAmount(id) {
     const BASKETPARENTREF = document.getElementById('basketMemberCard');
-    menus[KEYS[id[0]-1]][getMenuCategoryName(id[0]-1)][id[1]].amount++;  
+    menus[KEYS[id[0] - 1]][getMenuCategoryName(id[0] - 1)][id[1]].amount++;
 
-    BASKETPARENTREF.querySelector(`#menu${id}`).children[0].children[0].textContent = menus[KEYS[id[0]-1]][getMenuCategoryName(id[0]-1)][id[1]].amount;
+    BASKETPARENTREF.querySelector(`#menu${id}`).children[0].children[0].textContent = menus[KEYS[id[0] - 1]][getMenuCategoryName(id[0] - 1)][id[1]].amount;
 }
 
 function getMenuIDFromBasket(element) {
@@ -195,11 +230,12 @@ function getMenuIDFromBasket(element) {
 function deleteMenuFromBasket(element) {
     let menuRef = document.getElementById(`menu${getMenuIDFromBasket(element)}`)
     menuRef.remove();
-    menus[KEYS[menuRef.id[4]-1]][getMenuCategoryName(menuRef.id[4]-1)][menuRef.id[5]].amount = 1;
+    menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount = 1;
     setOrderPrice();
+    changeButtonText(element);
 
-    const BASKETPARENTREF = document.getElementById('basketMemberCard');    
-    if (BASKETPARENTREF.children.length == 1) {       
+    const BASKETPARENTREF = document.getElementById('basketMemberCard');
+    if (BASKETPARENTREF.children.length == 1) {
         showEmptyBasketInfo();
         hiddenCalculationSection();
     }
@@ -214,11 +250,11 @@ function increaseAmount(element) {
 function decreaseAmount(element) {
     const BASKETPARENTREF = document.getElementById('basketMemberCard');
     let menuRef = document.getElementById(`menu${getMenuIDFromBasket(element)}`)
-    
-    if (menus[KEYS[menuRef.id[4]-1]][getMenuCategoryName(menuRef.id[4]-1)][menuRef.id[5]].amount > 1) {
-        menus[KEYS[menuRef.id[4]-1]][getMenuCategoryName(menuRef.id[4]-1)][menuRef.id[5]].amount--;
-        BASKETPARENTREF.querySelector(`#menu${menuRef.id.slice(-2)}`).children[0].children[0].textContent = menus[KEYS[menuRef.id[4]-1]][getMenuCategoryName(menuRef.id[4]-1)][menuRef.id[5]].amount;
-        
+
+    if (menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount > 1) {
+        menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount--;
+        BASKETPARENTREF.querySelector(`#menu${menuRef.id.slice(-2)}`).children[0].children[0].textContent = menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount;
+
         calculateNewPrice(menuRef.id.slice(-2));
     }
 }
@@ -226,10 +262,17 @@ function decreaseAmount(element) {
 function calculateNewPrice(id) {
     const BASKETPARENTREF = document.getElementById('basketMemberCard');
     let menuPrice = BASKETPARENTREF.querySelector(`#menu${id}`).children[1].children[1];
-    let newPrice = menus[KEYS[id[0]-1]][getMenuCategoryName(id[0]-1)][id[1]].amount * menus[KEYS[id[0]-1]][getMenuCategoryName(id[0]-1)][id[1]].menuPrice; 
-    
+    let newPrice = menus[KEYS[id[0] - 1]][getMenuCategoryName(id[0] - 1)][id[1]].amount * menus[KEYS[id[0] - 1]][getMenuCategoryName(id[0] - 1)][id[1]].menuPrice;
+
     menuPrice.textContent = `${newPrice.toFixed(2)}€`;
     setOrderPrice();
+}
+
+function showDecreaseButton(buttenRef, basketRef) {
+    const MENUID = getMenuId(buttenRef);
+    const CATEGORYNAME = getMenuCategoryName(MENUID[0] - 1);
+    const DECREASEBUTTONREF = basketRef.querySelector(`#menu${MENUID}`).children[1].children[0].children[2];
+    DECREASEBUTTONREF.style.setProperty('--showElement', 'visible');
 }
 
 // set order costs
@@ -238,7 +281,7 @@ function setOrderPrice() {
     let deliveryFee = parseFloat(document.getElementById('deliveryFee').textContent);
     let totalPrice = document.getElementById('totalPrice');
     let priceButton = document.getElementById('priceButton');
-    
+
     subPrice.textContent = `${calculateSubAmount()}€`;
     totalPrice.textContent = `${calculateTotalPrice(calculateSubAmount(), deliveryFee)}€`;
     priceButton.textContent = `${calculateTotalPrice(calculateSubAmount(), deliveryFee)}€`;
@@ -251,10 +294,11 @@ function calculateSubAmount() {
     menuArray.forEach(el => {
         subPrice = subPrice + parseFloat(el.children[1].children[1].textContent);
     })
-    return subPrice.toFixed(2);   
+    return subPrice.toFixed(2);
 }
 
 function calculateTotalPrice(price, deliveryFee) {
-    let totalPrice = parseFloat(price) + deliveryFee; 
+    let totalPrice = parseFloat(price) + deliveryFee;
     return totalPrice.toFixed(2);
 }
+
