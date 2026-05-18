@@ -253,15 +253,18 @@ footer {
 }
 
 /* styling basket */
+
+
 .basket {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 8px;
 
-    position: sticky;
-    top: -60px;
-    right: 0;
+    position: fixed;
+    transform: translateY(-50%);
+    top: 50%;
+    right: calc(50% - 720px);
     z-index: 10;
 
     width: 350px;
@@ -421,4 +424,10 @@ footer {
             justify-content: space-between;
         }
     }
+}
+
+@media (max-width: 1440px) {
+  .basket {
+    right: 0px;
+  }
 }

@@ -106,27 +106,39 @@ function getMenuDataForBasket(currentElement) {
 }
 
 function renderMenuInBasket(basketRef, menuName, menuPrice, amount, menuId, currentElement) {
+    const DELETDED = false;
     if (basketRef.querySelector(`#menu${menuId}`) == null) {
         if (amount == 1) {
             basketRef.innerHTML += renderBasketMember(menuName, menuPrice, amount, menuId);
             calculateNewPrice(menuId);
-            changeButtonText(currentElement, amount);
+            changeButtonText(currentElement, DELETDED);
         }
     } else {
         const BASKETREF = document.getElementById('basketMemberCard');
         increaseBasketMenuAmount(menuId);
         calculateNewPrice(menuId);
-        changeButtonText(currentElement, amount);
+        changeButtonText(currentElement, DELETDED);
         showDecreaseButton(currentElement, BASKETREF);
     };
 }
 
-function changeButtonText(buttonRef) {
+function changeButtonText(buttonRef, deleted) {
     const MENUID = buttonRef.parentElement.parentElement.parentElement.id;
     const CURRENTCATEGORYNAME = getMenuCategoryName(MENUID[4] - 1);
     const CURRENTAMOUNT = getMenuAmount(MENUID[4] - 1, CURRENTCATEGORYNAME, MENUID[5]);
+    const SECTIONNAME = getSectionIdName(MENUID[4] - 1)
+    let btnAddToBasket = document.getElementById(`${SECTIONNAME}`).querySelectorAll('.menuCard');
 
-    buttonRef.textContent = `Added ${CURRENTAMOUNT}`;
+    btnAddToBasket.forEach(el => {
+        if (el.children[0].id === `menu${MENUID.slice(-2)}`) {
+            btnAddToBasket = el.children[0].children[1].children[1].children[1];
+            if (deleted) {
+                btnAddToBasket.textContent = `Add to basket`;
+            } else {
+                btnAddToBasket.textContent = `Added ${CURRENTAMOUNT}`;
+            }
+        }
+    });
 }
 
 function getSectionIdName(id) {
@@ -144,12 +156,8 @@ function getSectionIdName(id) {
         default:
             break;
     }
-
-return name;
+    return name;
 }
-
-
-
 
 function hiddenEmptyBasketInfo() {
     let emptyText = document.getElementById('emptyBasket');
@@ -228,11 +236,12 @@ function getMenuIDFromBasket(element) {
 }
 
 function deleteMenuFromBasket(element) {
-    let menuRef = document.getElementById(`menu${getMenuIDFromBasket(element)}`)
-    menuRef.remove();
-    menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount = 1;
+    const MENUREF = document.getElementById(`menu${getMenuIDFromBasket(element)}`)
+    const DELETDED = true;
+    menus[KEYS[MENUREF.id[4] - 1]][getMenuCategoryName(MENUREF.id[4] - 1)][MENUREF.id[5]].amount = 1;
+    MENUREF.remove();
     setOrderPrice();
-    changeButtonText(element);
+    changeButtonText(element, DELETDED);
 
     const BASKETPARENTREF = document.getElementById('basketMemberCard');
     if (BASKETPARENTREF.children.length == 1) {
@@ -242,20 +251,30 @@ function deleteMenuFromBasket(element) {
 }
 
 function increaseAmount(element) {
-    let menuRef = document.getElementById(`menu${getMenuIDFromBasket(element)}`);
-    increaseBasketMenuAmount(menuRef.id.slice(-2));
-    calculateNewPrice(menuRef.id.slice(-2));
+    const MENUREF = document.getElementById(`menu${getMenuIDFromBasket(element)}`);
+    const BUTTONDEGREASE = element.nextElementSibling;
+    const DELETDED = false;
+    BUTTONDEGREASE.style.setProperty('--showElement', 'visible');
+
+
+    increaseBasketMenuAmount(MENUREF.id.slice(-2));
+    calculateNewPrice(MENUREF.id.slice(-2));
+    changeButtonText(element, DELETDED);
 }
 
 function decreaseAmount(element) {
     const BASKETPARENTREF = document.getElementById('basketMemberCard');
+    const DELETDED = false;
     let menuRef = document.getElementById(`menu${getMenuIDFromBasket(element)}`)
 
     if (menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount > 1) {
         menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount--;
         BASKETPARENTREF.querySelector(`#menu${menuRef.id.slice(-2)}`).children[0].children[0].textContent = menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount;
-
+        changeButtonText(element,DELETDED);
         calculateNewPrice(menuRef.id.slice(-2));
+    }
+    if (menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount < 2) {
+        element.style.setProperty('--showElement', 'hidden');
     }
 }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
@@ -23,6 +23,7 @@
         </div>
 
         <section class="headerImages">
+
             <img class="landingImage" src="./assets/img/img_header.png" alt="a picture of great pizza meal">
             <img class="landingBurgerLogo" src="./assets/img/logo_burger.png" alt="a picture of a beaf burger">
             <div class="headline">
@@ -40,12 +41,7 @@
         <section id="burgerMenu" class="menuCategory">
             <div class="menuCategoryHeadlineBackground">
                 <div class="menuCategoryHeadline spaceBetween">
-                    <div class="flexbox">
-                        <img src="./assets/icons/burger_icon.svg" alt="a picture of a hamburger">
-                        <h2>Burger & Sandwiches</h2>
-                    </div>
-
-                    <section id="basketArea" class="basket">
+                    <aside id="basketArea" class="basket">
                         <h2>Your Basket</h2>
                         <div id="basketMemberCard" class="basketContent customScroll">
                             <section id="emptyBasket" class="basketEmptyText">
@@ -56,14 +52,18 @@
 
                         <section id="basketCalculation" class="orderCalculation orderCalculationHidden">
                             <div class="priceCalculation">
-                                <p><span >Subtotal</span><span id="subPrice"></span></p>
-                                <p><span >Delivery fee</span><span id="deliveryFee">5.99€</span></p>
+                                <p><span>Subtotal</span><span id="subPrice"></span></p>
+                                <p><span>Delivery fee</span><span id="deliveryFee">5.99€</span></p>
                                 <hr>
                                 <p><span> Total</span><span id="totalPrice"></span></p>
                             </div>
                             <button>Buy now (<span id="priceButton"></span>)</button>
-                        </section>   
-                    </section>
+                        </section>
+                    </aside>
+                    <div class="flexbox">
+                        <img src="./assets/icons/burger_icon.svg" alt="a picture of a hamburger">
+                        <h2>Burger & Sandwiches</h2>
+                    </div>
                 </div>
             </div>
         </section>
