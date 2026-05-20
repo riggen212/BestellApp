@@ -91,7 +91,7 @@ function getSaladData(index) {
 }
 
 // basket logic
-function getMenuDataForBasket(currentElement) {
+function getMenuDataForBasket(currentElement) { 
     let basketRef = document.getElementById('basketMemberCard');
     let menuCategoryIndex = getMenuCategoryIndex(currentElement);
     let menuCategoryName = getMenuCategoryName(menuCategoryIndex);
@@ -99,10 +99,10 @@ function getMenuDataForBasket(currentElement) {
     let menuName = getMenuName(menuCategoryIndex, menuCategoryName, menuId[1]);
     let amount = getMenuAmount(menuCategoryIndex, menuCategoryName, menuId[1]);
     let menuPrice = getMenuPrice(menuCategoryIndex, menuCategoryName, menuId[1]) * amount;
-
     hiddenEmptyBasketInfo();
     showCalculationSection();
     renderMenuInBasket(basketRef, menuName, menuPrice, amount, menuId, currentElement);
+    document.getElementById('basketArea').style.setProperty('--showBasket', 'visible');
 }
 
 function renderMenuInBasket(basketRef, menuName, menuPrice, amount, menuId, currentElement) {
@@ -254,7 +254,7 @@ function increaseAmount(element) {
     const MENUREF = document.getElementById(`menu${getMenuIDFromBasket(element)}`);
     const BUTTONDEGREASE = element.nextElementSibling;
     const DELETDED = false;
-    BUTTONDEGREASE.style.setProperty('--showElement', 'visible');
+    BUTTONDEGREASE.style.setProperty('--hiddenElement', 'visible');
 
 
     increaseBasketMenuAmount(MENUREF.id.slice(-2));
@@ -270,11 +270,11 @@ function decreaseAmount(element) {
     if (menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount > 1) {
         menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount--;
         BASKETPARENTREF.querySelector(`#menu${menuRef.id.slice(-2)}`).children[0].children[0].textContent = menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount;
-        changeButtonText(element,DELETDED);
+        changeButtonText(element, DELETDED);
         calculateNewPrice(menuRef.id.slice(-2));
     }
     if (menus[KEYS[menuRef.id[4] - 1]][getMenuCategoryName(menuRef.id[4] - 1)][menuRef.id[5]].amount < 2) {
-        element.style.setProperty('--showElement', 'hidden');
+        element.style.setProperty('--hiddenElement', 'hidden');
     }
 }
 
@@ -291,7 +291,7 @@ function showDecreaseButton(buttenRef, basketRef) {
     const MENUID = getMenuId(buttenRef);
     const CATEGORYNAME = getMenuCategoryName(MENUID[0] - 1);
     const DECREASEBUTTONREF = basketRef.querySelector(`#menu${MENUID}`).children[1].children[0].children[2];
-    DECREASEBUTTONREF.style.setProperty('--showElement', 'visible');
+    DECREASEBUTTONREF.style.setProperty('--hiddenElement', 'visible');
 }
 
 // set order costs
@@ -321,3 +321,56 @@ function calculateTotalPrice(price, deliveryFee) {
     return totalPrice.toFixed(2);
 }
 
+// dialog logic
+function showDialog() {
+    let DIALOG = document.getElementById('buyOrder');
+    let BTNORDER = document.getElementById('order');
+    let BASKETREF = document.getElementById('basketArea');
+    DIALOG.showModal();
+    clearBasket();
+    showEmptyBasketInfo();
+    hiddenCalculationSection();
+    BASKETREF.style.setProperty('--showBasket', 'hidden');
+    setTimeout(() => {
+        if (DIALOG.open) {
+            DIALOG.close();
+        }
+    }, 3000);
+}
+
+function clearBasket() {
+    let menuCardRef = document.getElementById('basketMemberCard').querySelectorAll('[id*="menu"]');
+    let menuArray = Array.from(menuCardRef);
+    menuArray.forEach(el => {
+        setDefaultValues(el.id.slice(-2));
+        el.remove();
+        resetAddToBasketButton(el.id.slice(-2));
+    })
+}
+
+function setDefaultValues(id) {
+    menus[KEYS[id[0] - 1]][getMenuCategoryName(id[0] - 1)][id[1]].amount = 1;
+}
+
+function resetAddToBasketButton(id) {
+    const CURRENTCATEGORYNAME = getMenuCategoryName(id[0] - 1);
+    const CURRENTAMOUNT = getMenuAmount(id[0] - 1, CURRENTCATEGORYNAME, id[1]);
+    const SECTIONNAME = getSectionIdName(id[0] - 1)
+    let btnAddToBasket = document.getElementById(`${SECTIONNAME}`).querySelectorAll('.menuCard');
+
+    btnAddToBasket.forEach(el => {
+        if (el.children[0].id === `menu${id}`) {
+            btnAddToBasket = el.children[0].children[1].children[1].children[1];
+            if (true) {
+                btnAddToBasket.textContent = `Add to basket`;
+            } else {
+                btnAddToBasket.textContent = `Added ${CURRENTAMOUNT}`;
+            }
+        }
+    });
+}
+
+function closeDialog() {
+    const DIALOG = document.getElementById('buyOrder');
+    DIALOG.close();
+}

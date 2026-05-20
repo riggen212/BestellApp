@@ -57,7 +57,7 @@
                                 <hr>
                                 <p><span> Total</span><span id="totalPrice"></span></p>
                             </div>
-                            <button>Buy now (<span id="priceButton"></span>)</button>
+                            <button onclick="showDialog()">Buy now (<span id="priceButton"></span>)</button>
                         </section>
                     </aside>
                     <div class="flexbox">
@@ -85,6 +85,15 @@
                 </div>
             </div>
         </section>
+
+        <dialog class="orderSuccessful" id="buyOrder">
+            <button onclick="closeDialog()">x</button>
+            <div class="orderSuccessfulText">
+                <img src="./assets/icons/order_successful.svg">
+                <p>Order confirmed!</p>
+                <p>Your food is on the way!</p>
+            </div>
+        </dialog>
     </main>
     <footer>
         <div class="footerContent">
